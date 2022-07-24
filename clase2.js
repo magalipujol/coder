@@ -1,4 +1,3 @@
-// para correr un archivo se usa node .\nombrearchivo.js
 class Libro{
     constructor (nombre, autor) {
         this.nombre = nombre;
@@ -7,7 +6,6 @@ class Libro{
 }
 
 class Usuario {
-
     constructor (nombre, apellido, libros, mascotas){
         this.nombre = nombre;
         this.apellido = apellido;
