@@ -1,10 +1,12 @@
 const fs = require('fs');
+const { promises:fs } = require('fs');
 
 class Contenedor {
     constructor(archivo){
         this.archivo = archivo;
     }
 
+    // devuelve un array con todos los objetos presentes en el archivo
     getAll() {
         return new Promise((resolve, reject) => {
             fs.readFile(this.archivo, 'utf8', (err, data) => {
@@ -16,7 +18,7 @@ class Contenedor {
             } );
         } );
     }
-
+    // recibe un id y devuelve el objeto con ese id
     getById(id) {
         return new Promise((resolve, reject) => {
             fs.readFile(this.archivo, 'utf8', (err, data) => {
@@ -54,6 +56,7 @@ class Contenedor {
         objeto.id = await this.getLastId() + 1;
     }
 
+    // devuelve un array con los objetos presentes en el archivo
     getAll() {
         return new Promise((resolve, reject) => {
             fs.readFile(this.archivo, 'utf8', (err, data) => {
@@ -66,6 +69,8 @@ class Contenedor {
         } );
     }
 
+    // recibe un objeto, lo guarda en el archivo, devuelve id asignado
+    // tomar en consideracion el contenido previo del archivo
     async save(objeto) {
         await this.assignId(objeto)
         return new Promise((resolve, reject) => {
