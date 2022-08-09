@@ -1,1 +1,0 @@
-{"nombre":"las recetas de la abuela","precio":2}
