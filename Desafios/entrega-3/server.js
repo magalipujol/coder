@@ -7,26 +7,26 @@
 // formato link a repo en github y url de proyecto en glitch
 
 const express = require('express');
-const { Contenedor } = require('../entrega-2/Contenedor.js');
+// require class Contenedor
+const Contenedor = require('../entrega-2/Contenedor.js');
+// import { Contenedor } from '../entrega-2/Contenedor.js';
 const app = express();
 const PORT = 8080;
 
-app.get('/', (request, response) => {
-    response.send('<h1 style="color:blue">Hola mundo</h1>')
+let contenedor = new Contenedor('productos.txt');
+
+app.get('/productos', async (request, response) => {
+    response.send(await contenedor.getAll());
 })
 
-let visitas = 0;
-app.get('/productos', (request, response) => {
-    response.send(``)
+app.get('/productoRandom', async (request, response) => {
+    let productos = await contenedor.getAll();
+    let producto = productos[Math.floor(Math.random() * productos.length)];
+    response.send(producto)
 })
 
-app.get('/fyh', (request, response) => {
-    const date = new Date().toString()
-    response.send(date)
-})
 
-const PORT = process.env.PORT || 8080
-const server = app.listen(PORT, () => {
-    `Servidor excuchando en el puerto ${PORT}`
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
 })
 

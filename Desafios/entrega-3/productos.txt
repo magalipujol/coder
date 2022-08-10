@@ -1,1 +1,1 @@
-[{"nombre":"las recetas de la abuela","precio":2,"id":1},{"nombre":"el pan de la abuela","precio":1,"id":2},,{"nombre":"la abuela","precio":"invaluable","id":3}]
+[{"nombre":"las recetas de la abuela","precio":2,"id":1},{"nombre":"el pan de la abuela","precio":1,"id":2},{"nombre":"la abuela","precio":"invaluable","id":3}]

@@ -86,15 +86,16 @@ let pan = {
 }
 
 
-async function main() {
-    let contenedor = new Contenedor('productos.txt');
+// async function main() {
+//     let contenedor = new Contenedor('productos.txt');
 
-    await contenedor.deleteAll();
-    await contenedor.save(galletitas);
-    console.log(await contenedor.getAll());
-    await contenedor.save(pan);
-    console.log(await contenedor.getAll());
+//     await contenedor.deleteAll();
+//     await contenedor.save(galletitas);
+//     console.log(await contenedor.getAll());
+//     await contenedor.save(pan);
+//     console.log(await contenedor.getAll());
 
-}
+// }
 
-main();
+module.exports = Contenedor;
+// main();
