@@ -15,6 +15,10 @@ const PORT = 8080;
 
 let contenedor = new Contenedor('productos.txt');
 
+app.get('/', (request, response) => {
+    response.send('<a href="/productos"><button>Productos</button></a> \n <a href="/productoRandom"><button>Producto Random</button> </a>');
+});
+
 app.get('/productos', async (request, response) => {
     response.send(await contenedor.getAll());
 })
