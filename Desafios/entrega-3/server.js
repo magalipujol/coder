@@ -7,16 +7,15 @@
 // formato link a repo en github y url de proyecto en glitch
 
 const express = require('express');
-// require class Contenedor
 const Contenedor = require('../entrega-2/Contenedor.js');
-// import { Contenedor } from '../entrega-2/Contenedor.js';
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
+app.use(express.static('public'));
 
 let contenedor = new Contenedor('productos.txt');
 
 app.get('/', (request, response) => {
-    response.send('<a href="/productos"><button>Productos</button></a> \n <a href="/productoRandom"><button>Producto Random</button> </a>');
+    response.sendFile('../public/index.html');
 });
 
 app.get('/productos', async (request, response) => {
