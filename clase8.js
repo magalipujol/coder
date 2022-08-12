@@ -58,7 +58,7 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 
-app.post('/uploadFile', upload.single('myFile'), (req, res) => {
+app.post('/uploadFile', upload.single('myFile'), (req, res, next) => {
     const file = req.file
     if(!file){
         const error = new Error('No file')
