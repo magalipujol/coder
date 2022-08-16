@@ -10,3 +10,68 @@ En detalle, que incorpore las siguientes rutas:
 
 Cada producto debe tener el formato: {title: (nombre), precio: (precio), thumbnail: (url al logo o foto del producto), id: (id unico)}
 */
+
+const { request } = require("express");
+const express = require("express");
+const { Router } = express;
+
+const app = express();
+const products = Router();
+
+app.use(express.json())
+
+let allProducts = [];
+
+
+
+products.post(
+  "/productos",
+  (req, res) => {
+    const { nombre, precio, thumbnail } = req.body;
+    const id = assignId();
+    allProducts.push({ nombre, precio, thumbnail, id });
+    res.send("Producto guardado con exito");
+  }
+);
+
+products.get("/productos", (req, res) => {
+  res.send(allProducts);
+});
+
+products.get("/productos/:id", (req, res) => {
+  let product = findById(req.params.id)
+  if (!product) {
+    return `error: el producto con id ${req.params.id} no existe`
+  }
+  res.send(product)
+});
+
+products.delete("/productos/:id", (req, res) => {
+  let product = findById(req.params.id)
+  if (!product) {
+    return `error: el producto con id ${req.params.id} no existe`
+  }
+  allProducts.splice(allProducts.indexOf(product), 1)
+  res.send('producto eliminado correctamente')
+})
+
+const assignId = () => {
+  let id = 1;
+  if (allProducts.length > 0) {
+    id = allProducts[allProducts.length - 1].id + 1;
+  }
+  return id;
+}
+
+// TODO transformar esto en middleware
+const findById = (id) => {
+  let product = allProducts.find(product => product.id == id)
+  return product
+}
+
+app.use("/api", products);
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log("server on");
+});
