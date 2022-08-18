@@ -11,18 +11,22 @@ En detalle, que incorpore las siguientes rutas:
 Cada producto debe tener el formato: {title: (nombre), precio: (precio), thumbnail: (url al logo o foto del producto), id: (id unico)}
 */
 
-const { request } = require("express");
 const express = require("express");
 const { Router } = express;
 
 const app = express();
 const products = Router();
+const PORT = 3000;
 
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
 app.use(express.json())
+app.listen(PORT, () => {
+  console.log(`server listening on port ${PORT}`);
+});
 
 let allProducts = [];
-
-
 
 products.post(
   "/productos",
@@ -71,7 +75,4 @@ const findById = (id) => {
 
 app.use("/api", products);
 
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log("server on");
-});
+
