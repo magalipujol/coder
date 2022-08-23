@@ -42,21 +42,45 @@ products.get("/productos", (req, res) => {
   res.send(allProducts);
 });
 
-products.get("/productos/:id", (req, res) => {
-  let product = findById(req.params.id)
+products.get("/productos/:id", (req, res, next) => {
+  const product = findById(req.params.id)
   if (!product) {
-    return `error: el producto con id ${req.params.id} no existe`
+    res.status(400).send(`error: el producto con id ${req.params.id} no existe`)
   }
+  },
+  (req, res) => {
+  const product = findById(req.params.id)
   res.send(product)
 });
 
-products.delete("/productos/:id", (req, res) => {
-  let product = findById(req.params.id)
+products.delete("/productos/:id", (req, res, next) => {
+  const product = findById(req.params.id)
   if (!product) {
-    return `error: el producto con id ${req.params.id} no existe`
+    res.status(400).send(`error: el producto con id ${req.params.id} no existe`)
   }
-  allProducts.splice(allProducts.indexOf(product), 1)
-  res.send('producto eliminado correctamente')
+  next()
+},
+(req, res) => {
+    const product = findById(req.params.id)
+    allProducts.splice(allProducts.indexOf(product), 1)
+    res.send('producto eliminado correctamente')
+  }
+)
+
+products.put("productos/:id", (req, res, next) => {
+  const product = findById(req.params.id)
+  if (!product) {
+    res.status(400).send(`error: el producto con id ${req.params.id} no existe`)
+  }
+  next()
+  },
+  (req, res) => {
+  const product = findById(req.params.id)
+  const { nombre, precio, thumbnail } = req.body;
+  product.nombre = nombre;
+  product.precio = precio;
+  product.thumbnail = thumbnail;
+  res.send("Producto actualizado con exito");
 })
 
 const assignId = () => {
@@ -67,7 +91,6 @@ const assignId = () => {
   return id;
 }
 
-// TODO transformar esto en middleware
 const findById = (id) => {
   let product = allProducts.find(product => product.id == id)
   return product
