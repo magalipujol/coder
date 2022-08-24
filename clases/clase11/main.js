@@ -8,7 +8,14 @@ const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
-io.on("connection", socket => console.log("Nueva conexión"))
+io.on("connection", socket => {
+
+    console.log("Nueva conexión")
+
+    socket.on("emitMessages", message => {
+        io.sockets.emit("emitMessages", message)
+    })
+    })
 
 app.use(express.static("public"));
 
