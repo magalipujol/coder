@@ -1,0 +1,16 @@
+//- TODO como agregar bootstrap para el formulario
+div(class='container mt-5')
+    div(class='row')
+        div(class='col')
+            form(id="data")
+                div(class='mb-3')
+                    label(class='form-label') Nombre
+                    input(class='form-control' id='nombre' )
+                div(class='mb-3')
+                    labe(class='form-label') Precio
+                    input(class='form-control' id='precio' )
+                div(class='mb-3')
+                    label(class='form-label') Imagen
+                    input(class='form-control' id='thumbnail' )
+                button(type='submit' class='btn btn-primary' onclick='guardarProducto()') Guardar
+script(src="js/main.js")

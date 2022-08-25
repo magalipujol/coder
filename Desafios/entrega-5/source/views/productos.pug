@@ -1,0 +1,18 @@
+//- TODO como agrego el script de bootstap?
+div(class='container mt-5')
+    div(class='row')
+        div(class='col')
+            table(class='table')
+                thead(class='table')
+                    th ID
+                    th Nombre
+                    th Precio
+                    th Imagen
+                tbody
+                    each producto in lista
+                        tr
+                            td= producto.id
+                            td= producto.nombre
+                            td= producto.precio
+                            td
+                                img(src=producto.thumbnail height='30px')

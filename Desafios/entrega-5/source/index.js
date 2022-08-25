@@ -7,8 +7,8 @@ Hacer lo mismo utilizando los tres motores de plantllas (handlebars, pug y ejs)
 */
 
 const express = require('express');
-// TODO chequear por quee hay dos, y que ruta va
-const { router, productos } = require('./routes');
+// TODO chequear que ruta va
+const { router, productos } = require('./api.js');
 
 const { engine } = require('express-handlebars')
 const ejs = require('ejs');
