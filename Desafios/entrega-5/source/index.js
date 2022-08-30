@@ -7,8 +7,8 @@ Hacer lo mismo utilizando los tres motores de plantllas (handlebars, pug y ejs)
 */
 
 const express = require('express');
-// TODO chequear que ruta va
 const { router, productos } = require('./api.js');
+console.log(productos);
 
 const { engine } = require('express-handlebars')
 const ejs = require('ejs');
@@ -40,13 +40,13 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('api/productos', router)
+app.use('/', router)
 
 app.get('/', (req, res) => {
-    res.render('form')
+    res.render('layouts/main', { productos: productos })
 })
 
-app.get('/productos', (req, res) => {
-    res.render('productos', { array: productos })
-})
+// app.get('/productos', (req, res) => {
+//     res.render('productos', { array: productos })
+// })
 

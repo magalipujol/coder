@@ -6,7 +6,7 @@ const guardarProducto = async () => {
 
     try {
         const data = { nombre, precio, thumbnail}
-        const response = await fetch('/api/productos', {
+        const response = await fetch('/productos', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json'},

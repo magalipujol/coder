@@ -2,7 +2,14 @@ const { Router } = require("express");
 
 const products = Router();
 
-let allProducts = [];
+let allProducts = [
+  {
+    nombre: "labradorcito",
+    precio: "1000 mimos x día",
+    thumbnail: "https://thumbs.dreamstime.com/b/sentada-del-perrito-de-labrador-30817211.jpg",
+    id: 1,
+  },
+];
 
 products.post("/productos", (req, res) => {
   const { nombre, precio, thumbnail } = req.body;
@@ -71,7 +78,6 @@ products.put(
   }
 );
 
-
 // funciones auxiliares
 const assignId = () => {
   let id = 1;
@@ -87,6 +93,6 @@ const findById = (id) => {
 };
 
 module.exports = {
-    router: products,
-    productos: allProducts
+  router: products,
+  productos: allProducts,
 };
