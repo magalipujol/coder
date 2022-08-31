@@ -43,10 +43,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', router)
 
 app.get('/', (req, res) => {
-    res.render('layouts/main', { productos: productos })
+    res.render('table', { productos: productos })
 })
 
-// app.get('/productos', (req, res) => {
-//     res.render('productos', { array: productos })
-// })
+app.get('/form', (req, res) => {
+    res.render('form', { productos: productos })
+})
 
