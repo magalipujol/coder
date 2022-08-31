@@ -1,5 +1,4 @@
 const guardarProducto = async () => {
-
     const nombre = document.getElementById('nombre').value
     const precio = document.getElementById('precio').value
     const thumbnail = document.getElementById('thumbnail').value
