@@ -29,10 +29,10 @@ app.listen(PORT, (req, res) => {
 
 
 // configuración para el motor de plantillas pug
-app.set('view engine', 'pug')
+// app.set('view engine', 'pug')
 
 // configuración para el motor de plantillas ejs
-// app.set('view engine', 'ejs')
+app.set('view engine', 'ejs')
 
 app.set('views', path.join(__dirname, 'views'))
 

@@ -1,4 +1,5 @@
 const guardarProducto = async () => {
+    console.log('se llamó a guardarProducto');
     const nombre = document.getElementById('nombre').value
     const precio = document.getElementById('precio').value
     const thumbnail = document.getElementById('thumbnail').value
@@ -18,3 +19,5 @@ const guardarProducto = async () => {
         return err
     }
 }
+
+console.log("script funcionando");
