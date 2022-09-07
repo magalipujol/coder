@@ -10,7 +10,7 @@ const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 const PORT = process.env.PORT || 3000;
 
-const connectedServer = app.listen(PORT, (req, res) => {
+const connectedServer = httpServer.listen(PORT, (req, res) => {
   console.log(`Server running on port ${PORT}`);
 });
 
@@ -43,10 +43,11 @@ let products = [
     },
   ];
 
-io.on("connection", async (socket) => {
+
+io.on("connection", (socket) => {
   console.log("new user connected");
 
-  socket.emit("productos", productos);
+  socket.emit("productos", products);
 
 });
 

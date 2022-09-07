@@ -19,23 +19,21 @@
 //     }
 // }
 
-const socket = io.connect();
+const socket = io.connect("/");
 
 function obtenerTemplateProductos(productos) {
-    return fetch('templates/productos-tabla.hbs').then((response) => {
-        response.text
-    })
+  return fetch("templates/productos-tabla.hbs")
+    .then((response) => response.text())
     .then((template) => {
-        const templateCompiled = Handlebars.compile(template)
-        return templateCompiled({ productos })
+      console.log(template);
+      const templateCompiled = Handlebars.compile(template);
+      return templateCompiled({ productos });
     });
 }
 
-
-
-socket.on("productos", async productos => {
-    const html = await obtenerTemplateProductos(productos);
-    document.getElementById('products').innerHTML = html;
-})
+socket.on("productos", async (productos) => {
+  const html = await obtenerTemplateProductos(productos);
+  document.getElementById("products").innerHTML = html;
+});
 
 console.log("script funcionando");
