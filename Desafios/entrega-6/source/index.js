@@ -32,22 +32,10 @@ app.get("/form", (req, res) => {
   res.render("form", { productos: productos });
 });
 
-
-// borrar esta variable
-let products = [
-    {
-      nombre: "labradorcito",
-      precio: "1000 mimos x día",
-      thumbnail: "https://thumbs.dreamstime.com/b/sentada-del-perrito-de-labrador-30817211.jpg",
-      id: 1,
-    },
-  ];
-
-
 io.on("connection", (socket) => {
   console.log("new user connected");
 
-  socket.emit("productos", products);
+  socket.emit("productos", productos);
 
 });
 
