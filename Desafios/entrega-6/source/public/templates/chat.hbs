@@ -5,7 +5,7 @@
       <div id="mensajes">
         <ul>
           {{#each mensajes}}
-            <li><b>{{this.nombre}}: </b>{{this.mensaje}}</li>
+            <li><b>{{this.username}}: </b>{{this.mensaje}}</li>
           {{/each}}
         </ul>
       </div>
@@ -17,7 +17,7 @@
           placeholder="Username"
           aria-label="Username"
           aria-describedby="basic-addon1"
-          id="nombre"
+          id="username"
         />
       </div>
       <div class="input-group mb-3" id="chat"></div>
@@ -29,7 +29,7 @@
           id="mensaje"
         ></textarea>
       </div>
-      <button type="button" class="btn btn-primary" id="enviar">Enviar</button>
+      <button type="button" class="btn btn-primary" id="enviar" onclick="guardarMensaje()">Enviar</button>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 const express = require("express");
-const { router, productos } = require("./api.js");
+const { router, productos, mensajes } = require("./api.js");
 const { engine } = require("express-handlebars");
 const path = require("path");
 const { Server: HttpServer } = require("http");
@@ -32,19 +32,21 @@ app.get("/form", (req, res) => {
   res.render("form", { productos: productos });
 });
 
-let mensajes = [
-{ nombre: "Juan", mensaje: "Hola" }
-]
 io.on("connection", (socket) => {
   console.log("new user connected");
 
   socket.emit("productos", productos);
   socket.emit("chat", mensajes);
 
-  // Esto no funciona, debería actualizar la tabla de productos
   socket.on('nuevo-producto', (data) => {
     // send data to all clients
+    console.log("nuevo mensaje");
+
     io.sockets.emit('productos', productos)
+  })
+  socket.on('nuevo-mensaje', (data) => {
+    // send data to all clients
+    io.sockets.emit('chat', mensajes)
   })
 
 });

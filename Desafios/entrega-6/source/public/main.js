@@ -7,15 +7,16 @@ const guardarProducto = async () => {
     const precio = document.getElementById('precio').value
     const thumbnail = document.getElementById('thumbnail').value
 
+    socket.emit('nuevo-producto', { nombre, precio, thumbnail })
     try {
         const data = { nombre, precio, thumbnail}
         const response = await fetch('/productos', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json'},
-        })
+          })
+          // emit to all clients
         const result = await response.json()
-        socket.emit('nuevo-producto', data)
         return result
 
     } catch (error) {
@@ -26,34 +27,56 @@ const guardarProducto = async () => {
 
 // socket para tabla de productos
 // descomentar para que funcione
-// function obtenerTemplateChat(productos) {
-//   return fetch("templates/productos-tabla.hbs")
-//     .then((response) => response.text())
-//     .then((template) => {
-//       const templateCompiled = Handlebars.compile(template);
-//       return templateCompiled({ productos });
-//     });
-// }
-
-// socket.on("productos", async (productos) => {
-//     console.log('llegaron products');
-//   const html = await obtenerTemplateChat(productos);
-//   document.getElementById("products").innerHTML = html;
-// });
-
-
-// funciones para chat
-function obtenerTemplateChat(mensajes) {
-  return fetch("templates/chat.hbs")
+function obtenerTemplateChat(productos) {
+  return fetch("templates/productos-tabla.hbs")
     .then((response) => response.text())
     .then((template) => {
       const templateCompiled = Handlebars.compile(template);
-      return templateCompiled({ mensajes });
+      return templateCompiled({ productos });
     });
 }
 
-socket.on("chat", async (mensajes) => {
-    console.log('nuevo mensaje');
-  const html = await obtenerTemplateChat(mensajes);
-  document.getElementById("complete-chat").innerHTML = html;
+socket.on("productos", async (productos) => {
+    console.log('llegaron products');
+  const html = await obtenerTemplateChat(productos);
+  document.getElementById("products").innerHTML = html;
 });
+
+
+// funciones para chat
+
+const guardarMensaje = async () => {
+  const username = document.getElementById('username').value
+  const mensaje = document.getElementById('mensaje').value
+
+  try {
+      const data = { username, mensaje }
+      const response = await fetch('/mensajes', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json'},
+      })
+      const result = await response.json()
+      socket.emit('nuevo-mensaje', data)
+      return result
+
+  } catch (error) {
+      let err = new Error(error)
+      return err
+  }
+}
+
+// function obtenerTemplateChat(mensajes) {
+//   return fetch("templates/chat.hbs")
+//     .then((response) => response.text())
+//     .then((template) => {
+//       const templateCompiled = Handlebars.compile(template);
+//       return templateCompiled({ mensajes });
+//     });
+// }
+
+// socket.on("chat", async (mensajes) => {
+//     console.log('nuevo mensaje');
+//   const html = await obtenerTemplateChat(mensajes);
+//   document.getElementById("complete-chat").innerHTML = html;
+// });
