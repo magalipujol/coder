@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h3>Chat</h3>
+      <div id="mensajes">
+        <ul>
+          {{#each mensajes}}
+            <li><b>{{this.nombre}}: </b>{{this.mensaje}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Nombre</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Username"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          id="nombre"
+        />
+      </div>
+      <div class="input-group mb-3" id="chat"></div>
+      <div class="input-group" style="margin-bottom: 5px;">
+        <span class="input-group-text">Mensaje:</span>
+        <textarea
+          class="form-control"
+          aria-label="With textarea"
+          id="mensaje"
+        ></textarea>
+      </div>
+      <button type="button" class="btn btn-primary" id="enviar">Enviar</button>
+    </div>
+  </div>
+</div>

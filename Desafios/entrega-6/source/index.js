@@ -32,10 +32,20 @@ app.get("/form", (req, res) => {
   res.render("form", { productos: productos });
 });
 
+let mensajes = [
+{ nombre: "Juan", mensaje: "Hola" }
+]
 io.on("connection", (socket) => {
   console.log("new user connected");
 
   socket.emit("productos", productos);
+  socket.emit("chat", mensajes);
+
+  // Esto no funciona, debería actualizar la tabla de productos
+  socket.on('nuevo-producto', (data) => {
+    // send data to all clients
+    io.sockets.emit('productos', productos)
+  })
 
 });
 

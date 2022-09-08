@@ -1,3 +1,7 @@
+const socket = io.connect();
+
+
+// funciones para tabla de productos
 const guardarProducto = async () => {
     const nombre = document.getElementById('nombre').value
     const precio = document.getElementById('precio').value
@@ -11,6 +15,7 @@ const guardarProducto = async () => {
             headers: { 'Content-Type': 'application/json'},
         })
         const result = await response.json()
+        socket.emit('nuevo-producto', data)
         return result
 
     } catch (error) {
@@ -19,20 +24,36 @@ const guardarProducto = async () => {
     }
 }
 
-const socket = io.connect("/");
+// socket para tabla de productos
+// descomentar para que funcione
+// function obtenerTemplateChat(productos) {
+//   return fetch("templates/productos-tabla.hbs")
+//     .then((response) => response.text())
+//     .then((template) => {
+//       const templateCompiled = Handlebars.compile(template);
+//       return templateCompiled({ productos });
+//     });
+// }
 
-function obtenerTemplateProductos(productos) {
-  return fetch("templates/productos-tabla.hbs")
+// socket.on("productos", async (productos) => {
+//     console.log('llegaron products');
+//   const html = await obtenerTemplateChat(productos);
+//   document.getElementById("products").innerHTML = html;
+// });
+
+
+// funciones para chat
+function obtenerTemplateChat(mensajes) {
+  return fetch("templates/chat.hbs")
     .then((response) => response.text())
     .then((template) => {
       const templateCompiled = Handlebars.compile(template);
-      return templateCompiled({ productos });
+      return templateCompiled({ mensajes });
     });
 }
 
-socket.on("productos", async (productos) => {
-  const html = await obtenerTemplateProductos(productos);
-  document.getElementById("products").innerHTML = html;
+socket.on("chat", async (mensajes) => {
+    console.log('nuevo mensaje');
+  const html = await obtenerTemplateChat(mensajes);
+  document.getElementById("complete-chat").innerHTML = html;
 });
-
-console.log("script funcionando");
